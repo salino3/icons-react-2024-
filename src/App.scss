@@ -46,4 +46,13 @@
   width: fit-content;
   height: fit-content;
   background-color: green;
+
+  .triangle_icon {
+    transform: rotate(120deg) scale(-1, 1); /* Rotar 120 grados y reflejar en el eje X */
+    transition: transform 0.5s ease; /* Transición suave para el efecto */
+  }
+
+  .triangle_icon:hover {
+    transform: rotate(120deg) scale(1, 1); /* Restaura a la posición original al pasar el ratón */
+  }
 }
