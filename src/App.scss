@@ -43,7 +43,8 @@
 
 .boxIcon {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: fit-content;
+  height: fit-content;
+  padding-bottom: 1rem;
   background-color: green;
 }

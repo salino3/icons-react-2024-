@@ -88,11 +88,13 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
           filter: shadow !== "none" ? `drop-shadow(${shadow})` : "none",
         }}
         dangerouslySetInnerHTML={{
-          __html: icon.svg.replace(/points='([^']+)'/, (match, p1) => {
-            const scale = size / 100; // Suponiendo que 100 es el tamaño base
-            const scaledPoints = scalePolygonPoints(p1, scale);
-            return `points='${scaledPoints}'`; // Asegúrate de usar comillas simples
-          }),
+          __html: icon.svg
+            .replace(/<svg /, `<svg width="${"64"}" height="${"55"}" `) // Establecer el tamaño en el SVG
+            .replace(/points='([^']+)'/, (match, p1) => {
+              const scale = size / 100; // Escala basado en el tamaño proporcionado
+              const scaledPoints = scalePolygonPoints(p1, scale);
+              return `points='${scaledPoints}'`; // Asegúrate de usar comillas simples
+            }),
         }}
       />
     )
