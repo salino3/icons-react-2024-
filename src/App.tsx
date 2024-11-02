@@ -11,12 +11,23 @@ function App() {
       <h1>Icon Demo</h1>
       <div className="boxIcon">
         <CustomIconList
-          customStyles="triangle_icon"
+          // customStyles="triangle_icon"
+          customStyles="circle_icon"
           userToken="valid_token_marioemail_1"
-          iconName="triangle_icon"
-          color="red"
+          iconName="circle_icon"
+          color="purple"
           shadow="12px 4px 6px rgba(120, 260, 120, 0.5)"
-          size={293}
+          size={297}
+        />
+
+        <CustomIconList
+          // customStyles="triangle_icon"
+          customStyles="circle_icon"
+          userToken="valid_token_marioemail_1"
+          iconName="F_icon"
+          color="yellow"
+          shadow="12px 4px 6px rgba(120, 260, 120, 0.5)"
+          size={207}
         />
       </div>
     </div>

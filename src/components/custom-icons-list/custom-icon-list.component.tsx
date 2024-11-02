@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./custom-icon-list.styles.scss";
 
 interface Icon {
@@ -26,23 +26,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [icon, setIcon] = useState<Icon | null>(null);
-
-  const scalePolygonPoints = (points: string, scale: number) => {
-    return points
-      .split(" ")
-      .map((point) => {
-        const coords = point.split(",").map((coord) => {
-          const value = parseFloat(coord);
-          if (isNaN(value)) {
-            console.warn(`Invalid coordinate found: ${coord}`);
-            return "0";
-          }
-          return (value * scale).toFixed(2);
-        });
-        return coords.join(",");
-      })
-      .join(" ");
-  };
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const verifySubscription = async () => {
@@ -72,9 +56,47 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
     if (isAuthorized) {
       fetch(`http://localhost:5000/icons?iconName=${iconName}`)
         .then((response) => response.json())
-        .then((data) => setIcon(data[0] || null));
+        .then((data) => setIcon(data[0] || null))
+        .catch((error) => console.error("Error fetching icon:", error));
     }
   }, [isAuthorized, iconName]);
+
+  const svgToDataUrl = (svg: string, color: string): string => {
+    const modifiedSvg = svg
+      .replace(/fill='currentColor'/g, `fill="${color}"`)
+      .replace(/fill=""/g, `fill="${color}"`);
+
+    const encodedSVG = encodeURIComponent(modifiedSvg).replace(/%20/g, " ");
+    return `data:image/svg+xml;charset=utf-8,${encodedSVG}`;
+  };
+
+  useEffect(() => {
+    if (icon && canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d");
+      const img = new Image();
+      const iconSvgDataUrl = svgToDataUrl(icon.svg, color);
+
+      img.onload = () => {
+        if (canvasRef.current) {
+          const aspectRatio = img.width / img.height;
+          const width = size * aspectRatio;
+
+          canvasRef.current.width = width;
+          canvasRef.current.height = size;
+
+          ctx?.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          );
+          ctx?.drawImage(img, 0, 0, width, size);
+        }
+      };
+
+      img.src = iconSvgDataUrl;
+    }
+  }, [icon, color, size]);
 
   if (!isAuthorized) {
     return <div>Please subscribe to view this icon.</div>;
@@ -82,23 +104,15 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 
   return (
     icon && (
-      <div
+      <canvas
         className={customStyles}
         style={{
-          width: "auto",
-          height: size,
-          color: color,
           filter: shadow !== "none" ? `drop-shadow(${shadow})` : "none",
+          pointerEvents: "none",
         }}
-        dangerouslySetInnerHTML={{
-          __html: icon.svg
-            // .replace(/<svg /, `<svg width="${"auto"}" height="${"auto"}" `)
-            .replace(/points='([^']+)'/, (match, p1) => {
-              const scale = size / 100;
-              const scaledPoints = scalePolygonPoints(p1, scale);
-              return `points='${scaledPoints}'`;
-            }),
-        }}
+        ref={canvasRef}
+        draggable={"false"}
+        height={size}
       />
     )
   );
