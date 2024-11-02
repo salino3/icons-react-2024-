@@ -78,11 +78,11 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 
       img.onload = () => {
         if (canvasRef.current) {
-          const aspectRatio = img.width / img.height;
-          const width = size * aspectRatio;
+          const aspectRatio = img.height / img.width;
+          const height = size * aspectRatio;
 
-          canvasRef.current.width = width;
-          canvasRef.current.height = size;
+          canvasRef.current.width = size;
+          canvasRef.current.height = height;
 
           ctx?.clearRect(
             0,
@@ -90,7 +90,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
             canvasRef.current.width,
             canvasRef.current.height
           );
-          ctx?.drawImage(img, 0, 0, width, size);
+          ctx?.drawImage(img, 0, 0, size, height);
         }
       };
 
@@ -112,7 +112,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
         }}
         ref={canvasRef}
         draggable={"false"}
-        height={size}
+        width={size}
       />
     )
   );

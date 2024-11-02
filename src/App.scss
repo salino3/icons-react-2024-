@@ -49,12 +49,7 @@
   height: fit-content;
   background-color: blue;
   background-color: green;
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    // background-color: orange;
-  }
+
   .circle_icon {
     border: solid 1px black;
   }
@@ -66,5 +61,20 @@
 
   .triangle_icon:hover {
     transform: rotate(120deg) scale(1, 1);
+  }
+
+  .icon_021 {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    .icon_022 {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+
+      z-index: 999;
+      bottom: 10px;
+    }
   }
 }

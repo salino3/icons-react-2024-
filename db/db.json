@@ -30,7 +30,7 @@
     },
     {
       "iconName": "circle_icon",
-      "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0   100 90'  width='auto' height='auto' fill='none' ><circle cx='50' cy='50' r='40' fill='currentColor'/></svg>"
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90.5'  width='auto' height='auto' fill='none' ><circle cx='50' cy='50' r='40' fill='currentColor'/></svg>"
     },
     {
       "iconName": "square_icon",
@@ -38,7 +38,7 @@
     },
     {
       "iconName": "triangle_icon",
-      "svg": "<svg width='auto' height='auto' viewBox='0 0 105 110' xmlns='http://www.w3.org/2000/svg'  ><polygon points='50,0 0,50 100,50' fill='currentColor'/></svg>"
+      "svg": "<svg width='auto' height='auto' viewBox='0 0 100 50' xmlns='http://www.w3.org/2000/svg'  ><polygon points='50,0 0,50 100,50' fill='currentColor'/></svg>"
     },
     {
       "iconName": "F_icon",
