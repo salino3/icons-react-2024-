@@ -12,7 +12,8 @@ interface CustomIconListProps {
   iconName: string;
   color?: string;
   shadow?: string;
-  size?: number;
+  size?: number; // width
+  sizeHeight?: number; // height
   customStyles?: string;
 }
 
@@ -21,7 +22,8 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
   iconName,
   color = "black",
   shadow = "none",
-  size = 32,
+  size = 32, // width
+  sizeHeight, // height
   customStyles,
 }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -63,8 +65,8 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 
   const svgToDataUrl = (svg: string, color: string): string => {
     const modifiedSvg = svg
-      .replace(/fill='currentColor'/g, `fill="${color}"`)
-      .replace(/fill=""/g, `fill="${color}"`);
+      .replace(/fill='currentColor'/g, `fill='${color}'`)
+      .replace(/fill=""/g, `fill='${color}'`);
 
     const encodedSVG = encodeURIComponent(modifiedSvg).replace(/%20/g, " ");
     return `data:image/svg+xml;charset=utf-8,${encodedSVG}`;
@@ -79,10 +81,10 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
       img.onload = () => {
         if (canvasRef.current) {
           const aspectRatio = img.height / img.width;
-          const height = size * aspectRatio;
+          const height = sizeHeight ? sizeHeight : size * aspectRatio; // Usa sizeHeight si está definido, de lo contrario, calcula la altura.
 
           canvasRef.current.width = size;
-          canvasRef.current.height = height;
+          canvasRef.current.height = sizeHeight ? sizeHeight : height + 1;
 
           ctx?.clearRect(
             0,
@@ -96,7 +98,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 
       img.src = iconSvgDataUrl;
     }
-  }, [icon, color, size]);
+  }, [icon, color, size, sizeHeight]); // Añade sizeHeight a las dependencias
 
   if (!isAuthorized) {
     return <div>Please subscribe to view this icon.</div>;
