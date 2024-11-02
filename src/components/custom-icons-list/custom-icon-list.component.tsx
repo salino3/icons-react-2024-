@@ -13,14 +13,16 @@ interface CustomIconListProps {
   color?: string;
   shadow?: string;
   size?: number;
+  customStyles?: string;
 }
 
 export const CustomIconList: React.FC<CustomIconListProps> = ({
   userToken,
   iconName,
-  color = "#000",
+  color = "black",
   shadow = "none",
   size = 32,
+  customStyles,
 }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [icon, setIcon] = useState<Icon | null>(null);
@@ -78,26 +80,19 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
     return <div>Please subscribe to view this icon.</div>;
   }
 
-  const baseSize = 100;
-  const baseWidth = 64;
-  const baseHeight = 55;
-
-  let width = (baseWidth / baseSize) * size;
-  let height = (baseHeight / baseSize) * size;
-
   return (
     icon && (
       <div
-        className="custom-icon-gogolenicon-22"
+        className={customStyles}
         style={{
-          width: width,
-          height: height,
+          width: "auto",
+          height: size,
           color: color,
           filter: shadow !== "none" ? `drop-shadow(${shadow})` : "none",
         }}
         dangerouslySetInnerHTML={{
           __html: icon.svg
-            .replace(/<svg /, `<svg width="${width}" height="${height}" `)
+            // .replace(/<svg /, `<svg width="${"auto"}" height="${"auto"}" `)
             .replace(/points='([^']+)'/, (match, p1) => {
               const scale = size / 100;
               const scaledPoints = scalePolygonPoints(p1, scale);
