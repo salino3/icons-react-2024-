@@ -15,7 +15,7 @@ function App() {
           iconName="star_icon_2"
           color="yellow"
           shadow="12px 4px 6px rgba(120, 260, 120, 0.5)"
-          size={100}
+          size={220}
         />
       </div>
     </div>

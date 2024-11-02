@@ -25,7 +25,6 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [icon, setIcon] = useState<Icon | null>(null);
 
-  // Función para escalar los puntos del polígono
   const scalePolygonPoints = (points: string, scale: number) => {
     return points
       .split(" ")
@@ -33,8 +32,8 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
         const coords = point.split(",").map((coord) => {
           const value = parseFloat(coord);
           if (isNaN(value)) {
-            console.warn(`Invalid coordinate found: ${coord}`); // Agrega un aviso para coordenadas inválidas
-            return "0"; // Retorna "0" si no se puede convertir
+            console.warn(`Invalid coordinate found: ${coord}`);
+            return "0";
           }
           return (value * scale).toFixed(2);
         });
@@ -71,7 +70,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
     if (isAuthorized) {
       fetch(`http://localhost:5000/icons?iconName=${iconName}`)
         .then((response) => response.json())
-        .then((data) => setIcon(data[0] || null)); // Obtener solo el icono especificado
+        .then((data) => setIcon(data[0] || null));
     }
   }, [isAuthorized, iconName]);
 
@@ -79,21 +78,30 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
     return <div>Please subscribe to view this icon.</div>;
   }
 
+  const baseSize = 100;
+  const baseWidth = 64;
+  const baseHeight = 55;
+
+  let width = (baseWidth / baseSize) * size;
+  let height = (baseHeight / baseSize) * size;
+
   return (
     icon && (
       <div
-        className="cutom-icon-gogolenicon-22"
+        className="custom-icon-gogolenicon-22"
         style={{
+          width: width,
+          height: height,
           color: color,
           filter: shadow !== "none" ? `drop-shadow(${shadow})` : "none",
         }}
         dangerouslySetInnerHTML={{
           __html: icon.svg
-            .replace(/<svg /, `<svg width="${"64"}" height="${"55"}" `) // Establecer el tamaño en el SVG
+            .replace(/<svg /, `<svg width="${width}" height="${height}" `)
             .replace(/points='([^']+)'/, (match, p1) => {
-              const scale = size / 100; // Escala basado en el tamaño proporcionado
+              const scale = size / 100;
               const scaledPoints = scalePolygonPoints(p1, scale);
-              return `points='${scaledPoints}'`; // Asegúrate de usar comillas simples
+              return `points='${scaledPoints}'`;
             }),
         }}
       />
