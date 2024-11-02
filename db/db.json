@@ -1,16 +1,31 @@
 {
   "subscriptions": [
-    { "id": 1, "userToken": "valid-token", "isSubscribed": true },
-    { "id": 2, "userToken": "expired-token", "isSubscribed": false }
+    {
+      "id": 1,
+      "userToken": "valid_token_marioemail_1",
+      "isSubscribed": true,
+      "allowedIcons": ["star_icon", "circle_icon", "star_icon_2"]
+    },
+    {
+      "id": 2,
+      "userToken": "valid_token_lolaemail_2",
+      "isSubscribed": true,
+      "allowedIcons": ["circle_icon"]
+    }
   ],
   "icons": [
     {
-      "iconName": "star-icon",
+      "iconName": "star_icon_2",
+      "title": "Star_2",
+      "svg": "<svg xmlns='http://www.w3.org/2000/svg'><polygon points='32,0 43,20 64,20 49,35 54,55 32,45 10,55 15,35 0,20 21,20' fill='currentColor'/></svg>"
+    },
+    {
+      "iconName": "star_icon",
       "title": "Star",
       "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><polygon points='50,15 61,35 82,35 67,50 72,70 50,60 28,70 33,50 18,35 39,35' fill='currentColor'/></svg>"
     },
     {
-      "iconName": "circle-icon",
+      "iconName": "circle_icon",
       "title": "Circle",
       "svg": "<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='40' fill='currentColor'/></svg>"
     }

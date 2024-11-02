@@ -3,14 +3,21 @@ import { CustomIconList } from "./components";
 
 function App() {
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: "blue",
+      }}
+    >
       <h1>Icon Demo</h1>
-      <CustomIconList
-        userToken="valid-token"
-        color="#FF5733"
-        shadow="2px 4px 6px rgba(0, 0, 0, 0.5)"
-        size={48}
-      />
+      <div className="boxIcon">
+        <CustomIconList
+          userToken="valid_token_marioemail_1"
+          iconName="star_icon_2"
+          color="yellow"
+          shadow="12px 4px 6px rgba(120, 260, 120, 0.5)"
+          size={100}
+        />
+      </div>
     </div>
   );
 }
