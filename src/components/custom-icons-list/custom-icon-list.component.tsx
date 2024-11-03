@@ -12,6 +12,7 @@ interface CustomIconListProps {
   iconName: string;
   color?: string;
   shadow?: string;
+  colorShadow?: string;
   size?: number; // width
   sizeHeight?: number; // height
   customStyles?: string;
@@ -22,6 +23,7 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
   iconName,
   color = "black",
   shadow = "none",
+  colorShadow = "",
   size = 32, // width
   sizeHeight, // height
   customStyles,
@@ -109,7 +111,16 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
       <canvas
         className={customStyles}
         style={{
-          filter: shadow !== "none" ? `drop-shadow(${shadow})` : "none",
+          filter:
+            shadow.trim() === "shadow"
+              ? `drop-shadow(7px 4px 16px ${
+                  colorShadow ? colorShadow : "rgba(120, 260, 120, 0.5))"
+                }`
+              : shadow !== "none"
+              ? `drop-shadow(${shadow} ${
+                  colorShadow ? colorShadow : "rgba(120, 260, 120, 0.5)"
+                })`
+              : "none",
           pointerEvents: "none",
         }}
         ref={canvasRef}
