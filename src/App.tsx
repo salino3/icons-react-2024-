@@ -17,6 +17,7 @@ function App() {
           color="purple"
           // colorShadow="blue"
           shadow="shadow"
+          errorMsg="Please subscribe to see this icon"
           size={307}
         />
         <div className="triangle_icon">
@@ -34,7 +35,7 @@ function App() {
         <span className="icon_021">
           <CustomIconList
             customStyles="icon_022"
-            userToken="valid_token_marioemail_1"
+            userToken=""
             iconName="square_icon"
             color="blue"
             shadow="7px 4px 16px  "

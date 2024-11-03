@@ -16,6 +16,8 @@ interface CustomIconListProps {
   size?: number; // width
   sizeHeight?: number; // height
   customStyles?: string;
+  customStylesError?: string;
+  errorMsg?: string;
 }
 
 export const CustomIconList: React.FC<CustomIconListProps> = ({
@@ -27,6 +29,8 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
   size = 32, // width
   sizeHeight, // height
   customStyles,
+  customStylesError,
+  errorMsg = "Error",
 }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [icon, setIcon] = useState<Icon | null>(null);
@@ -100,10 +104,14 @@ export const CustomIconList: React.FC<CustomIconListProps> = ({
 
       img.src = iconSvgDataUrl;
     }
-  }, [icon, color, size, sizeHeight]); // Añade sizeHeight a las dependencias
+  }, [icon, color, size, sizeHeight]);
 
   if (!isAuthorized) {
-    return <div>Please subscribe to view this icon.</div>;
+    return (
+      <div className={customStylesError}>
+        <span>{errorMsg}</span>
+      </div>
+    );
   }
 
   return (
